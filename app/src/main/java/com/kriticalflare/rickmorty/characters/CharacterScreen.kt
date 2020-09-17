@@ -21,8 +21,7 @@ import com.kriticalflare.rickmorty.data.model.Character
 
 @Composable
 fun CharacterScreen(
-    modifier: Modifier = Modifier.fillMaxSize().gravity(Alignment.CenterVertically)
-        .gravity(Alignment.CenterHorizontally), characters: List<Character>
+    modifier: Modifier = Modifier.fillMaxSize(), characters: List<Character>
 ) {
     Scaffold(
         modifier = modifier,
@@ -32,7 +31,7 @@ fun CharacterScreen(
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalGravity = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator()
             }

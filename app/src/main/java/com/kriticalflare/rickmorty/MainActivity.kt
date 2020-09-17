@@ -28,12 +28,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
-//    RickmortyTheme {
-//        Greeting("Android")
-//    }
-//}
