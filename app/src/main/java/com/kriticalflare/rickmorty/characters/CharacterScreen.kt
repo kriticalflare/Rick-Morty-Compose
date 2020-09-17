@@ -1,32 +1,28 @@
 package com.kriticalflare.rickmorty.characters
 
-import androidx.compose.foundation.Box
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope.gravity
-import androidx.compose.foundation.layout.RowScope.gravity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.viewinterop.viewModel
 import com.kriticalflare.rickmorty.components.CharactersList
 import com.kriticalflare.rickmorty.components.RickMortyAppBar
-import com.kriticalflare.rickmorty.data.model.Character
 
 @Composable
 fun CharacterScreen(
-    modifier: Modifier = Modifier.fillMaxSize(), characters: List<Character>
+    modifier: Modifier = Modifier.fillMaxSize(),
+    onCharSelect: (Int) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
         topBar = { RickMortyAppBar() }
     ) {
+        val charactersViewModel = viewModel<CharactersViewModel>()
+        val characters = charactersViewModel.charactersList
         if (characters.isEmpty()) {
             Column(
                 Modifier.fillMaxSize(),
@@ -36,7 +32,7 @@ fun CharacterScreen(
                 CircularProgressIndicator()
             }
         } else {
-            CharactersList(modifier = Modifier.fillMaxSize(), characters = characters)
+            CharactersList(modifier = Modifier.fillMaxSize(), characters = characters, onCharSelect)
         }
     }
 }
