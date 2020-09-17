@@ -7,3 +7,4 @@ Android app using Jetpack Compose and Rick and Morty API built using
   * Moshi
   * [Accompanist](https://github.com/chrisbanes/accompanist)
   * [Rick And Morty API](https://rickandmortyapi.com)
+  * [Compose-Router](https://github.com/zsoltk/compose-router)
