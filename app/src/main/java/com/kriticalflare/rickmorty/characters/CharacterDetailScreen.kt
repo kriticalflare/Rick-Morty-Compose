@@ -1,7 +1,5 @@
 package com.kriticalflare.rickmorty.characters
 
-import androidx.compose.foundation.Box
-import androidx.compose.foundation.ContentGravity
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
@@ -9,12 +7,10 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.launchInComposition
 import androidx.compose.runtime.onActive
 import androidx.compose.runtime.onDispose
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
@@ -23,20 +19,23 @@ import com.kriticalflare.rickmorty.data.model.CharacterResponse
 import dev.chrisbanes.accompanist.coil.CoilImageWithCrossfade
 
 @Composable
-fun CharacterDetailScreen(charId: Int){
+fun CharacterDetailScreen(charId: Int) {
     val charactersViewModel = viewModel<CharactersViewModel>()
 
-    onActive{
+    onActive {
         charactersViewModel.getCharacter(charId)
     }
 
-    onDispose{
+    onDispose {
         charactersViewModel.charLoading = true
     }
 
     Scaffold(topBar = { RickMortyAppBar() }) {
-        if(charactersViewModel.charLoading){
-            Box(Modifier.fillMaxSize(),gravity = ContentGravity.Center){
+        if (charactersViewModel.charLoading) {
+            Column(
+                Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 CircularProgressIndicator()
             }
         } else {
@@ -55,11 +54,11 @@ fun CharacterDetailScreen(charId: Int){
 }
 
 @Composable
-fun CharacterHeader(char: CharacterResponse){
-    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)){
+fun CharacterHeader(char: CharacterResponse) {
+    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
         CoilImageWithCrossfade(data = char.image, modifier = Modifier.size(128.dp))
         Spacer(Modifier.weight(1f))
-        Column(Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)){
+        Column(Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)) {
             Text(char.name, style = MaterialTheme.typography.h3)
         }
         Spacer(Modifier.weight(0.5f))
@@ -67,6 +66,10 @@ fun CharacterHeader(char: CharacterResponse){
 }
 
 @Composable
-fun CharacterStat(statLabel: String, stat: String){
-    Text("$statLabel: ${if(stat.isBlank()) "Unknown" else stat}", modifier = Modifier.padding(8.dp), style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Light))
+fun CharacterStat(statLabel: String, stat: String) {
+    Text(
+        "$statLabel: ${if (stat.isBlank()) "Unknown" else stat}",
+        modifier = Modifier.padding(8.dp),
+        style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Light)
+    )
 }
