@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.kriticalflare.rickmorty.components.RickMortyAppBar
 import com.kriticalflare.rickmorty.data.model.CharacterResponse
-import dev.chrisbanes.accompanist.coil.CoilImageWithCrossfade
+import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun CharacterDetailScreen(charId: Int) {
@@ -56,7 +56,7 @@ fun CharacterDetailScreen(charId: Int) {
 @Composable
 fun CharacterHeader(char: CharacterResponse) {
     Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-        CoilImageWithCrossfade(data = char.image, modifier = Modifier.size(128.dp))
+        CoilImage(data = char.image, fadeIn = true, modifier = Modifier.size(128.dp))
         Spacer(Modifier.weight(1f))
         Column(Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)) {
             Text(char.name, style = MaterialTheme.typography.h3)
