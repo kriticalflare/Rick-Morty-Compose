@@ -3,6 +3,7 @@ package com.kriticalflare.rickmorty
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.ExperimentalLazyDsl
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.navigation.NavType
@@ -14,6 +15,7 @@ import com.kriticalflare.rickmorty.ui.RickmortyTheme
 
 class MainActivity : AppCompatActivity() {
 
+    @ExperimentalLazyDsl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
