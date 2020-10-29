@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
-import androidx.compose.runtime.onDispose
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -22,12 +20,11 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 fun CharacterDetailScreen(charId: Int) {
     val charactersViewModel = viewModel<CharactersViewModel>()
 
-    onActive {
+    DisposableEffect(subject = charId ) {
         charactersViewModel.getCharacter(charId)
-    }
-
-    onDispose {
-        charactersViewModel.charLoading = true
+        onDispose {
+            charactersViewModel.charLoading = true
+        }
     }
 
     Scaffold(topBar = { RickMortyAppBar() }) {
