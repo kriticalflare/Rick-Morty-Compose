@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.core.os.bundleOf
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
 import com.kriticalflare.rickmorty.characters.CharacterDetailScreen
 import com.kriticalflare.rickmorty.characters.CharacterScreen
 import com.kriticalflare.rickmorty.routing.Screen
@@ -24,20 +21,22 @@ class MainActivity : AppCompatActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.CharacterScreen.title
+                    startDestination = Screen.CharacterScreen.route
                 ) {
-                    composable(Screen.CharacterScreen.title) {
+                    composable(Screen.CharacterScreen.route) {
                         CharacterScreen(
                             Modifier.fillMaxSize(),
                             onCharSelect = { id ->
                                 navController.navigate(
-                                    Screen.CharacterDetailScreen.title,
-                                    bundleOf("id" to id)
+                                    Screen.CharacterDetailScreen.routeWithoutArgs + "$id",
                                 )
                             })
                     }
 
-                    composable(Screen.CharacterDetailScreen.title) { navBackStackEntry ->
+                    composable(
+                        Screen.CharacterDetailScreen.route,
+                        arguments = listOf(navArgument("id") { type = NavType.IntType })
+                    ) { navBackStackEntry ->
                         CharacterDetailScreen(navBackStackEntry.arguments?.getInt("id")!!)
                     }
                 }
