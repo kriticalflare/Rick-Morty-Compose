@@ -1,5 +1,6 @@
 package com.kriticalflare.rickmorty.characters
 
+import android.widget.Toast
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.ExperimentalLazyDsl
@@ -12,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.onSizeChanged
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.DensityAmbient
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -75,10 +77,13 @@ fun CharacterScreen(
 
                 itemsIndexed(lazyPagingItems) { index, item ->
                     if (item != null) {
+                        val context = ContextAmbient.current
                         CharacterItem(
-                            modifier = Modifier.padding(8.dp),
                             character = item,
-                            onClick = onCharSelect
+                            onClick = onCharSelect,
+                            onSwipe = {
+                                Toast.makeText(context, "${it.name}", Toast.LENGTH_LONG).show()
+                            }
                         )
                     }
                 }
